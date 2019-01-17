@@ -2,7 +2,7 @@ language: python
 
 python:
   - "3.6"
-  - "3.7"
+#  - "3.7" # Currently broken on Travis-CI
 
 branches:
   only:
@@ -13,6 +13,7 @@ services:
   - redis-server
 
 install:
+  - pip install starlette==0.8 # Current version of responder requires old starlette
   - pip install -r requirements.txt
   - pip install -r requirements_test.txt
 
