@@ -3,7 +3,6 @@
 ### IMPORTS ###
 import logging
 import os
-import math
 
 import redis
 import responder
