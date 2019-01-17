@@ -14,7 +14,7 @@ services:
 
 install:
   - pip install -r requirements.txt
-  - pip install -r test_requirements.txt
+  - pip install -r requirements_test.txt
 
 script:
   - flake8 app.py
