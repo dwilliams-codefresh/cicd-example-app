@@ -1,5 +1,5 @@
 #https://blog.realkinetic.com/building-minimal-docker-containers-for-python-applications-37d0272c52f3
-FROM python:3.6-alpine
+FROM python:3.6-stretch
 
 COPY requirements.txt /
 
