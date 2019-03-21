@@ -23,6 +23,7 @@ script:
   - docker tag dwilliams-kenzan/catternauts-api:latest registry.heroku.com/cicd-example-app
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.heroku.com
   - docker push registry.heroku.com/cicd-example-app
+  - curl -n -X PATCH https://api.heroku.com/apps/cicd-example-app/formation -d "{\"updates\":[{\"type\":\"cicd-example-app\",\"docker_image\":\"$(docker inspect registry.heroku.com/cicd-example-app --format={{.id}})\"}]}" -H "Content-Type: application/json" -H "Accept: application/vnd.heroku+json; version=3.docker-releases"
 
 after_success:
   - coveralls

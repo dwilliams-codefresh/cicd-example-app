@@ -12,7 +12,7 @@ REDIS_SERVER_HOSTNAME = os.getenv('REDIS_SERVER_HOSTNAME', 'localhost')
 REDIS_SERVER_PORT = os.getenv('REDIS_SERVER_PORT', '6379')
 REDIS_SERVER_DB = os.getenv('REDIS_SERVER_DB', '0')
 
-LISTENER_PORT = os.getenv('LISTENER_PORT', '8080')
+LISTENER_PORT = os.getenv('PORT', '8080')
 
 redis_client = None
 
