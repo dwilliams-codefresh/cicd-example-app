@@ -20,9 +20,9 @@ script:
   - flake8 app.py
   - coverage run --include app.py -m py.test
   - docker build -t dwilliams-kenzan/catternauts-api:latest .
-  - docker tag dwilliams-kenzan/catternauts-api:latest registry.heroku.com/dwilliams@kenzan.com/cicd-example-app:latest
+  - docker tag dwilliams-kenzan/catternauts-api:latest registry.heroku.com/cicd-example-app
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.heroku.com
-  - docker push registry.heroku.com/dwilliams@kenzan.com/cicd-example-app:latest
+  - docker push registry.heroku.com/cicd-example-app
 
 after_success:
   - coveralls
