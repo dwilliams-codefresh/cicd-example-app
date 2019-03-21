@@ -1,12 +1,5 @@
 sudo: false
 
-addons:
-  apt:
-    sources:
-      - heroku
-    packages:
-      - heroku
-
 language: python
 
 python:
@@ -29,13 +22,6 @@ script:
   - flake8 app.py
   - coverage run --include app.py -m py.test
   - docker build -t dwilliams-kenzan/catternauts-api:latest .
-  #- docker tag dwilliams-kenzan/catternauts-api:latest registry.heroku.com/cicd-example-app
-  #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.heroku.com
-  #- docker push registry.heroku.com/cicd-example-app
-  #- 'curl -n -X PATCH https://api.heroku.com/apps/cicd-example-app/formation -d "{\"updates\":[{\"type\":\"cicd-example-app\",\"docker_image\":\"$(docker inspect registry.heroku.com/cicd-example-app --format={{.id}})\"}]}" -H "Content-Type: application/json" -H "Accept: application/vnd.heroku+json; version=3.docker-releases" -H "Authorization: Bearer $DOCKER_PASSWORD"'
-  - heroku container:login
-  - heroku container:push --app cicd-example-app web
-  - heroku container:release --app cicd-example-app web
 
 after_success:
   - coveralls
