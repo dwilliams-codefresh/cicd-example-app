@@ -1,0 +1,39 @@
+version: '1.0'
+kind: pipeline
+metadata:
+  name: catternauts/cd
+  isPublic: false
+  labels:
+    tags:
+      - demo
+  project: catternauts
+spec:
+  triggers:
+    - type: git
+      name: CF_REPO_OWNER/cicd-example-app
+      repo: CF_REPO_OWNER/cicd-example-app
+      events:
+        - pullrequest.opened
+        - pullrequest.reopened
+        - pullrequest.synchronize
+        - release
+      pullRequestAllowForkEvents: true
+      commentRegex: /.*/gi
+      branchRegex: /.*/gi
+      branchRegexInput: regex
+      pullRequestTargetBranchRegex: /master/gi
+      provider: github
+  contexts:
+    - CF_HELM_DEFAULT
+  variables:
+    - key: KUBE_CONTEXT
+      value: 'KUBERNETES_CLUSTER_NAME'
+    - key: KUBE_NAMESPACE
+      value: 'KUBERNETES_NAMESPACE'
+  specTemplate:
+    location: git
+    repo: CF_REPO_OWNER/cicd-example-app
+    path: .codefresh/codefresh-cd.yml
+    context: github
+  steps: {}
+  stages: []
