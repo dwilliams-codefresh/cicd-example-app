@@ -7,7 +7,11 @@ spec:
     metadata:
       labels:
         name: catternauts
+        app: catternauts
     spec:
       containers:
         - name: catternauts
           images: dwilliamscfexamplevotingapp/catternauts:latest
+          env:
+            - name: REDIS_SERVER_HOSTNAME
+              value: spin-redis.spinnaker
