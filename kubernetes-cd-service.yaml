@@ -4,5 +4,9 @@ metadata:
   name: catternauts
   namespace: catternauts
 spec:
+  selector:
+    app: catternauts
   ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
