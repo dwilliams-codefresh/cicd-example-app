@@ -25,7 +25,7 @@ def root(req, resp):
     base64_image = redis_client.srandmember('catternauts').decode('utf-8')
     output_html = "<html><body><h1>Catternaut:</h1><img src=\"{}\"></img></body></html>".format(base64_image)
     logging.debug("GET Response: %s", output_html)
-    resp.text = output_html
+    resp.html = output_html
 
 ### CLASSES ###
 
