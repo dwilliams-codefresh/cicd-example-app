@@ -31,4 +31,5 @@ steps:
         service: 'catternauts'
         candidate:
           image: '${{DOCKER_ORGANIZATION}}/catternauts:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+          registry: example-voting-app
 
