@@ -4,6 +4,10 @@ metadata:
   name: catternauts
   namespace: catternauts
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: catternauts
   template:
     metadata:
       labels:
