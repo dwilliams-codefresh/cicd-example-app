@@ -26,10 +26,10 @@ steps:
         title: Deploy PR image to Kubernetes
         type: deploy
         arguments:
-          candidate:
-            image: '${{DOCKER_ORGANIZATION}}/catternauts:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
           cluster: '${{KUBE_CONTEXT}}'
           kind: kubernetes
           namespace: '${{KUBE_NAMESPACE}}'
           service: 'catternauts'
-        
+          candidate:
+            image: '${{DOCKER_ORGANIZATION}}/catternauts:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+
