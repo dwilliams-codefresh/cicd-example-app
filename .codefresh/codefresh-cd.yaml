@@ -22,3 +22,14 @@ steps:
         working_directory: ./
         dockerfile: Dockerfile
         tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+      Deploy:
+        title: Deploy PR image to Kubernetes
+        type: deploy
+        arguments:
+          candidate:
+            image: '${{DOCKER_ORGANIZATION}}/catternauts:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+          cluster: '${{KUBERNETES_CLUSTER_NAME}}'
+          kind: kubernetes
+          namespace: '${{KUBERNETES_NAMESPACE}}'
+          service: 'catternauts'
+        
