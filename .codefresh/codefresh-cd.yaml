@@ -28,8 +28,8 @@ steps:
         arguments:
           candidate:
             image: '${{DOCKER_ORGANIZATION}}/catternauts:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
-          cluster: '${{KUBERNETES_CLUSTER_NAME}}'
+          cluster: '${{KUBE_CONTEXT}}'
           kind: kubernetes
-          namespace: '${{KUBERNETES_NAMESPACE}}'
+          namespace: '${{KUBE_NAMESPACE}}'
           service: 'catternauts'
         
