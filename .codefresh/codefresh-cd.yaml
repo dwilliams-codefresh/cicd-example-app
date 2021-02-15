@@ -1,6 +1,7 @@
 version: '1.0'
 stages:
   - build
+  - deploy
   #- "pull request"
   #- staging
   #- production
@@ -11,25 +12,30 @@ steps:
     repo: '${{CF_REPO_OWNER}}/cicd-example-app'
     revision: '${{CF_REVISION}}'
     git: github
-  BuildingMicroServices:
-    type: parallel
+  BuildImage:
+    title: Building Image
+    type: build
     stage: build
-    steps:
-      BuildResultImage:
-        title: Building Result Image
-        type: build
-        image_name: ${{DOCKER_ORGANIZATION}}/catternauts
-        working_directory: ./
-        dockerfile: Dockerfile
-        tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
-      Deploy:
-        title: Deploy PR image to Kubernetes
-        type: deploy
-        cluster: '${{KUBE_CONTEXT}}'
-        kind: kubernetes
-        namespace: '${{KUBE_NAMESPACE}}'
-        service: 'catternauts'
-        candidate:
-          image: '${{DOCKER_ORGANIZATION}}/catternauts:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
-          registry: example-voting-app
+    image_name: ${{DOCKER_ORGANIZATION}}/catternauts
+    working_directory: ./
+    dockerfile: Dockerfile
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+  UnitTest:
+    title: Unit Tests
+    image: '${{BuildImage}}'
+    stage: build
+    commands:
+      - pip install -r requirements_test.txt
+      - coverage run --include app.py -m py.test
+  Deploy:
+    title: Deploy PR image to Kubernetes
+    type: deploy
+    stage: deploy
+    cluster: '${{KUBE_CONTEXT}}'
+    kind: kubernetes
+    namespace: '${{KUBE_NAMESPACE}}'
+    service: 'catternauts'
+    candidate:
+      image: '${{DOCKER_ORGANIZATION}}/catternauts:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+      registry: example-voting-app
 
