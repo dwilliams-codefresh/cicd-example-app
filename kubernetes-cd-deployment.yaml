@@ -20,3 +20,5 @@ spec:
           env:
             - name: REDIS_SERVER_HOSTNAME
               value: spin-redis.spinnaker
+            - name: PORT
+              value: "8080"
