@@ -25,6 +25,7 @@ steps:
     image: '${{BuildImage}}'
     stage: build
     commands:
+      - export REDIS_SERVER_HOSTNAME=spin-redis.spinnaker
       - pip install -r requirements_test.txt
       - coverage run --include app.py -m py.test
   Deploy:
